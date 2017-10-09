@@ -1,0 +1,24 @@
+window.addEventListener('mousemove', dispatchMouseCoordinates);
+
+function dispatchMouseCoordinates(e) {
+  var coords = {x: e.clientX, y:e.clientY};
+  if (inBoundary(coords)) {
+    gameAction(coords);
+    // console.log('p')
+  }
+}
+
+function inBoundary(coordinate) {
+  if (coordinate.x > 500 ||
+      coordinate.x < 30 ||
+      (coordinate.y > 500 ||
+       coordinate.y < 30)) {
+   	return false;
+  } else {
+    return true;
+  }
+}
+
+function gameAction(e){
+	console.log('current user position X:' + e.x + ' Y:' + e.y);
+}
