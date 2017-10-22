@@ -1,0 +1,11 @@
+just a simple matter of when you called certain functions
+
+reset()
+and boardState()
+
+made all the difference in this working or not
+
+the goal of this code is to make it so
+the piece won't lock onto the div
+if it is already contained
+
