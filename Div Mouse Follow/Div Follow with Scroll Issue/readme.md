@@ -6,3 +6,12 @@ I guess this is intended https://developer.mozilla.org/en-US/docs/Mozilla/Perfor
 
 ![f](https://imgur.com/Rs9mTnO.gif)
 
+## Solution
+
+You cannot just disable the `scroll` event, according to this SO post. However one possible solution is to watch for, and disable, specific keys that are pressed such as page up / down, scroll etc.
+
+![f](https://imgur.com/a61pu1D.png)
+
+Another simple solution is to disable the scroll bar from popping up (which prevents scrolling) by using `overflow:hidden`
+
+![f](https://imgur.com/AmN2FoR.png)
