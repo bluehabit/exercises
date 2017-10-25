@@ -1,0 +1,29 @@
+<h2>Click to Stop follow</h2>
+<div id="follower" style="position: absolute; width: 30px; height: 30px; background-color: red;"></div>
+<script>
+
+var flag = false; 	
+var div = document.getElementById('follower');
+
+div.addEventListener('click', function(){
+	flag = !flag;
+	console.log(flag)
+})
+
+window.addEventListener('mousemove', moveFollower)
+
+function moveFollower(evt) {
+var e = {};
+
+	if(flag){
+		e.clientX = (typeof evt.clientX != undefined) ? evt.clientX : event.x;
+		e.clientY = (typeof evt.clientY != undefined) ? evt.clientY : event.y;
+
+		var obj = document.getElementById("follower");
+		obj.style.left = e.clientX;
+		obj.style.top = e.clientY;
+	} else {
+		return;
+	}
+}
+</script>
