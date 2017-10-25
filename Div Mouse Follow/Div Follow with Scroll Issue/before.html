@@ -1,1 +1,108 @@
 
+<h2>Scroll Down w/ MouseWheel</h2>
+<h2>Blue Div Won't Follow on Y</h2>
+<h3>But will Follow on X</h3>
+
+<div class='blue grabme'></div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+<style>
+
+.blue{
+	width: 50px;
+	height: 50px;
+	background-color: blue;
+	position: absolute;
+}
+
+.purple{
+	width: 50px;
+	height: 50px;
+	background-color: purple;
+	position: absolute;
+}
+
+.zdex {
+	z-index: 99;
+}
+
+</style>
+
+<script>
+var divs = document.querySelectorAll('.grabme')
+
+window.addEventListener('mousemove', moveFollower);
+window.addEventListener('scroll', function(e){
+	e.preventDefault();
+})
+
+function moveFollower(evt) {
+	var e = {};
+	e.clientX = (typeof evt.clientX != "undefined") ? evt.clientX : event.x;
+	e.clientY = (typeof evt.clientY != "undefined") ? evt.clientY : event.y;
+	var obj = divs[0];
+	obj.style.left = e.clientX - 25 + 'px';
+	obj.style.top = e.clientY - 25 + 'px';
+}
+</script>
