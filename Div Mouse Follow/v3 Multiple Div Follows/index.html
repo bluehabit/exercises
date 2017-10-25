@@ -1,0 +1,54 @@
+<h2>Mousemove on Multiple DIVs</h2>
+
+<div class='blue grabme'></div>
+<br>
+<br>
+<br>
+<br>
+<div class='purple grabme'></div>
+
+<style>
+.blue{
+	width: 50px;
+	height: 50px;
+	background-color: blue;
+	position: absolute;
+}
+
+.purple{
+	width: 50px;
+	height: 50px;
+	background-color: purple;
+	position: absolute;
+}
+
+.zdex {
+	z-index: 99;
+}
+
+</style>
+
+<script>
+var divs = document.querySelectorAll('.grabme')
+
+divs.forEach(function(div){
+	div.clicked = false;
+	div.addEventListener('click', toggle)
+})
+
+function toggle(e){
+	var piece = this;
+	this.clicked = !this.clicked;
+	this.classList.add('zdex')
+
+	window.addEventListener('mousemove', function(evt){
+		if(piece.clicked){
+			piece.style.left = evt.clientX - 25;
+			piece.style.top = evt.clientY - 25;
+		} else {
+			piece.classList.remove('zdex')
+			return;
+		}
+	})
+}
+</script>
