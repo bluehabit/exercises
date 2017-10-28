@@ -1,5 +1,7 @@
 
-### Read Me
+# Read Me
+
+## Puzzle Pieces Moving on window Resize Issue
 
 On previous versions if you resized the window it would cause the puzzle pieces to move along with it. To fix this you have to give the main container position `relative` or `absolute` . This introduces a new error because when something has position `relative` or `absolute` its is in relation to its `parent` container. Whatever the `main` container is offset by, your mouse coordinates will be off by that much as well. 
 
@@ -12,7 +14,7 @@ To correct for this we can use
 
 
 
-### Z-index Issue
+## Z-index Issue
 
 The original issue was when I placed a puzzle piece over its container it would fall behind that div, causing the puzzle piece to disapear. To fix this I added a default `z-index` value to all the puzzle pieces so they would be higher, and thus appear on top of, the div containers.
 
