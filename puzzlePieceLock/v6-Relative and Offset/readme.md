@@ -1,0 +1,1 @@
+On previous versions if you resized the window it would cause the puzzle pieces to move along with it. To fix this you have to give the main container position `relative` or `absolute` . This introduces a new  error w
