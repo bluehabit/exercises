@@ -1,0 +1,235 @@
+<script>
+//example 1
+var parrot = {
+   name: 'Luna',
+   scream: function(){
+      console.log(this.name, 'screams ahhhh!');
+   }
+}
+
+var dog = {
+	name: 'Pete',
+	age: 2
+}
+
+var myVar = parrot.scream;
+var boundFunction = myVar.bind(dog)
+boundFunction();
+//- Pete screams ahhhh!
+
+
+//example 2
+
+var dog = {
+	sound: 'woof',
+	talk: function(){
+		console.log(this.sound)
+	}
+}
+
+
+dog.talk()
+//object.method() is implicit binding, so we can 
+//assume .talk refers to the dog object, that is the CONTEXT
+//of the keyword this.
+
+var talkFunction = dog.talk; //stores a function DEFINITION
+talkFunction(); //undefined, this has no value here because
+//the function definition is unbound from the object. the 
+//function expression talkFunction is just floating around 
+//with no context now. It has LOST its connection to the dog object
+
+var boundFunction2 = dog.talk.bind(dog);
+//boundFunction2 returns a bound function, by using the .bind method
+//with the bind method we pass through a parameter that holds the 
+//value of an object that is the new context, referring to that object
+
+
+//example 3
+
+var spot = {
+	breed: 'Corgi',
+	bark: function(){
+		console.log(this.sound);
+	}
+}
+
+var person = {
+	name: 'Chris',
+	sound: 'Humans make strange sounds'
+}
+
+var dogSpeak = spot.bark; //contains function definition
+//boundFunction() //-> undefined
+
+var boundFunction3 = spot.bark.bind(person);
+//boundFunction(); //-> 'Humans make strange sounds'
+
+
+//example 4
+
+function talk(){
+	console.log(this.sound);
+}
+
+var boromir = {
+	sound: 'One does not simply walk into mordor'
+}
+
+var talkBoundToBoromir  = talk.bind(boromir);
+// talkBoundToBoromir() -> One does not simply walk into mordor
+
+//example 5
+
+var chris = {
+	firstName: 'Chris',
+	sayHi: function(){
+		return 'Hi ' + this.firstName;
+	},
+
+	addNumbers: function(a,b,c,d){
+		return this.firstName + ' just calculated ' + (a+b+c+d);
+	}
+}
+
+var el = {
+	firstName: 'el'
+}
+
+//chris.addNumbers(1,1,1,2); -> "Chris just calculated 5"
+
+var elCalc = chris.addNumbers.bind(el);
+elCalc(1,1,1,2)
+//-> "el just calculated 5"
+
+
+
+//example 6
+
+// var a;
+
+// class makeBullet {
+// 	constructor(x, y){
+// 		this.type = 'bullet',
+// 		this.imgSource = 'images/round_bullet.png',
+// 		this.x = x,
+// 		this.y = y,
+// 		this.location = function(){
+// 			console.log(this.type, 'is at coordinates:', this.x, this.y)
+// 		}
+
+// 		a = this.location;
+// 	}
+// }
+
+// function createBullet(){
+//  	return new makeBullet(Math.floor(Math.random() * 5) + 1, Math.floor(Math.random() * 15) + 1);
+// }
+
+// var newBullet = createBullet();
+//why does this one work? :(
+
+
+
+
+// class makeBullet {
+// 	constructor(x, y, callback){
+// 		this.type = 'bullet',
+// 		this.imgSource = 'images/round_bullet.png',
+// 		this.x = x,
+// 		this.y = y,
+// 		this.location = function(){
+// 			console.log(this.type, 'is at coordinates:', this.x, this.y)
+// 		},
+
+// 		this.imgPath = function(){
+// 			console.log(this.type, 'image is at ', this.imgSource)
+// 		},
+
+// 		callback(this.type)
+		
+// 	}
+// }
+
+// function createBullet(){
+//  	return new makeBullet(Math.floor(Math.random() * 5) + 1, Math.floor(Math.random() * 15) + 1, 
+//  		function(type){
+//  			console.log(type, 'is the type my man!')
+//  	});
+// }
+
+// var newBullet = createBullet();
+
+
+// class makeBullet {
+// 	constructor(callback){
+// 		this.type = 'bullet',
+// 		this.imgSource = 'images/round_bullet.png',
+// 		this.x = Math.floor(Math.random() * 5) +1,
+// 		this.y = Math.floor(Math.random() * 15) + 1,
+// 		this.location = function(){
+// 			console.log(this.type, 'is at coordinates:', this.x, this.y)
+// 		},
+
+// 		this.imgPath = function(){
+// 			console.log(this.type, 'image is at ', this.imgSource)
+// 		}
+
+// 		callback(this.location, this.imgPath);
+// 	}
+// }
+
+// function createBullet(){
+// 	var randomNumber = Math.random();
+// 	return new makeBullet(function(location, img){
+// 		if(randomNumber > .5){
+// 			location();
+// 		} else {
+// 			img();
+// 		}
+// 	});
+// }
+
+// var newBullet = createBullet();
+
+
+
+
+//SOLUTION
+var a;
+var b;
+
+class makeBullet {
+	constructor(callback){
+		this.type = 'bullet',
+		this.imgSource = 'images/round_bullet.png',
+		this.x = Math.floor(Math.random() * 5) +1,
+		this.y = Math.floor(Math.random() * 15) + 1,
+		this.location = function(){
+			console.log(this.type, 'is at coordinates:', this.x, this.y)
+		},
+
+		this.imgPath = function(){
+			console.log(this.type, 'image is at ', this.imgSource)
+		}
+
+		a = this.location //just a function definition detached from obj,
+		b = this.imgPath //just a function definition detached from obj
+	}
+}
+
+function createBullet(){
+	var randomNumber = Math.random();
+	return new makeBullet(function(location, img){
+		if(randomNumber > .5){
+			location();
+		} else {
+			img();
+		}
+	});
+}
+
+var newBullet = createBullet();
+// console.log('hey!')
+
+</script>
