@@ -1,0 +1,118 @@
+<script>
+// var a;
+
+// class makeBullet {
+// 	constructor(x, y){
+// 		this.type = 'bullet',
+// 		this.imgSource = 'images/round_bullet.png',
+// 		this.x = x,
+// 		this.y = y,
+// 		this.location = function(){
+// 			console.log(this.type, 'is at coordinates:', this.x, this.y)
+// 		}
+
+// 		a = this.location;
+// 	}
+// }
+
+// function createBullet(){
+//  	return new makeBullet(Math.floor(Math.random() * 5) + 1, Math.floor(Math.random() * 15) + 1);
+// }
+
+// //a() does not work, calling from the conosle looks at the window object
+// //newBullet returns the bullet object
+// //makeBullet {type: "bullet", imgSource: "images/round_bullet.png", x: 4, y: 8, location: ƒ}
+
+// //the issue seems to be CALLING the function
+
+// var newBullet = createBullet();
+// // why does this one work? :(
+
+
+// var a;
+// var b;
+
+// class makeBullet {
+// 	constructor(callback){
+// 		this.type = 'bullet',
+// 		this.imgSource = 'images/round_bullet.png',
+// 		this.x = Math.floor(Math.random() * 5) +1,
+// 		this.y = Math.floor(Math.random() * 15) + 1,
+// 		this.location = function(){
+// 			console.log(this.type, 'is at coordinates:', this.x, this.y)
+// 		},
+
+// 		this.imgPath = function(){
+// 			console.log(this.type, 'image is at ', this.imgSource)
+// 		}
+
+// 		a = this.location //just a function definition detached from obj,
+// 		b = this.imgPath //just a function definition detached from obj
+// 	}
+// }
+
+// function createBullet(){
+// 	var randomNumber = Math.random();
+// 	return new makeBullet(function(location, img){
+// 		if(randomNumber > .5){
+// 			location();
+// 		} else {
+// 			img();
+// 		}
+// 	});
+// }
+
+// var newBullet = createBullet();
+
+//a(); doesn't work, if you execute from console its global context
+//loses its object
+//b() same thing doesn't work
+
+
+var a;
+var b;
+var c;
+console.log('hi')
+
+class makeBullet {
+	constructor(callback){
+		this.type = 'bullet',
+		this.imgSource = 'images/round_bullet.png',
+		this.x = Math.floor(Math.random() * 5) +1,
+		this.y = Math.floor(Math.random() * 15) + 1,
+		this.location = function(){
+			console.log(this.type, 'is at coordinates:', this.x, this.y)
+		},
+
+		this.imgPath = function(){
+			console.log(this.type, 'image is at ', this.imgSource)
+		},
+
+		this.printType = function(){
+			console.log(this.type, 'is the type');
+		},
+
+		a = this.location.bind(this) //just a function definition detached from obj,
+		b = this.imgPath.bind(this) //just a function definition detached from obj
+		c = this.printType.bind(this);
+	
+		callback(this.location.bind(this), this.imgPath.bind(this))
+	}
+}
+
+function createBullet(){
+	var randomNumber = Math.random();
+	return new makeBullet(function(location, img){
+		setTimeout(function(){
+			if(randomNumber > .5){
+			   location();
+			} else {
+			    img();
+			}
+		}, 1000)		
+	})	
+}
+
+var newBullet = createBullet();
+
+</script>
